@@ -44,10 +44,7 @@ vidpath = "172.16.10.241"
 
 # Loop
 while True:
-    os.system("clear")
-    print("-- Facial Recognition --")
-    print("Camera IP:")
-    print("  " + vidpath)
+
     # Read the video frame
     with urllib.request.urlopen("http://" + vidpath + ":8080/shot.jpg") as url:
         imgReard = url.read()
@@ -61,7 +58,10 @@ while True:
 
     # Get all face from the video frame
     faces = faceCascade.detectMultiScale(gray, 1.2,5)
-
+    os.system("clear")
+    print("-- Facial Recognition --")
+    print("Camera IP:")
+    print("  " + vidpath)
     print("Currently Visible: ")
 
     # For each face in faces
