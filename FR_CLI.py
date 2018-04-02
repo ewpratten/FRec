@@ -29,6 +29,7 @@ faceCascade = cv2.CascadeClassifier(cascadePath);
 
 # Set the font style
 font = cv2.FONT_HERSHEY_SIMPLEX
+hc = 0
 
 
 def clear_screen():
@@ -39,12 +40,16 @@ def clear_screen():
     import os
     os.system(['clear', 'cls'][os.name == 'nt'])
 
+vidpath = "172.16.10.241"
 
 # Loop
 while True:
-    clear_screen()
+    os.system("clear")
+    print("-- Facial Recognition --")
+    print("Camera IP:")
+    print("  " + vidpath)
     # Read the video frame
-    with urllib.request.urlopen("http://172.16.10.241:8080/shot.jpg") as url:
+    with urllib.request.urlopen("http://" + vidpath + ":8080/shot.jpg") as url:
         imgReard = url.read()
     imgNp = np.array(bytearray(imgReard), dtype=np.uint8)
     img = cv2.imdecode(imgNp, -1)
@@ -57,8 +62,7 @@ while True:
     # Get all face from the video frame
     faces = faceCascade.detectMultiScale(gray, 1.2,5)
 
-    print("\n", end="")
-    print("Currently Visible: ", end="")
+    print("Currently Visible: ")
 
     # For each face in faces
     for(x,y,w,h) in faces:
@@ -68,10 +72,16 @@ while True:
 
         # Check the ID if exist
         if(Id == 1):
-            print("Evan ", end="")
+            print("  Evan ")
+            hc = 1
 
         if (Id == 2):
-            print("Warren ", end="")
+            print("  Warren ")
+            hc = 1
 
         if (Id == 3):
-            print("Gianna  ", end="")
+            print("  Gianna  ")
+            hc = 1
+    if hc == 0:
+        print("  NONE")
+    hc = 0
