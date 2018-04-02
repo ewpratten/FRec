@@ -31,9 +31,18 @@ faceCascade = cv2.CascadeClassifier(cascadePath);
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 
+def clear_screen():
+    """
+    clear the screen in the command shell
+    works on windows (nt, xp, Vista) or Linux
+    """
+    import os
+    os.system(['clear', 'cls'][os.name == 'nt'])
+
 
 # Loop
 while True:
+
     # Read the video frame
     with urllib.request.urlopen("http://172.16.10.241:8080/shot.jpg") as url:
         imgReard = url.read()
@@ -48,6 +57,8 @@ while True:
     # Get all face from the video frame
     faces = faceCascade.detectMultiScale(gray, 1.2,5)
 
+    print("\n", end="")
+    print("Currently Visible: ", end="")
     # For each face in faces
     for(x,y,w,h) in faces:
 
@@ -57,12 +68,22 @@ while True:
         # Recognize the face belongs to which ID
         Id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
 
-        # Check the ID if exist 
-        if(Id == 1):
+        # Check the ID if exist
+
+        if(Id == 1 or Id == 5):
             Id = "Evan {0:.2f}%".format(round(100 - confidence, 2))
+            print("Evan ", end="")
 
         if (Id == 2):
             Id = "Warren {0:.2f}%".format(round(100 - confidence, 2))
+            print("Warren ", end="")
+
+        if (Id == 3 or Id == 4):
+            Id = "Gianna {0:.2f}%".format(round(100 - confidence, 2))
+            print("Gianna  ", end="")
+        # if (Id == 4):
+        #     Id = "Gianna {0:.2f}%".format(round(100 - confidence, 2))
+        #     print("Gianna  ", end="")
 
         # Put text describe who is in the picture
         cv2.rectangle(im, (x-22,y-90), (x+w+22, y-22), (0,255,0), -1)

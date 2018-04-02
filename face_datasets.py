@@ -14,7 +14,7 @@ def assure_path_exists(path):
 face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 # For each person, one face id
-face_id = 2
+face_id = 5
 
 # Initialize sample face image
 count = 0

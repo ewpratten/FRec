@@ -71,7 +71,7 @@ while True:
         Id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
 
         # Check the ID if exist
-        if(Id == 1):
+        if(Id == 1 or Id == 5):
             print("  Evan ")
             hc = 1
 
@@ -79,7 +79,7 @@ while True:
             print("  Warren ")
             hc = 1
 
-        if (Id == 3):
+        if (Id == 3 or Id == 4):
             print("  Gianna  ")
             hc = 1
     if hc == 0:
